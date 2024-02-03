@@ -1,0 +1,31 @@
+pragma solidity ^0.8.0;
+
+contract SimpleContract {
+    uint private myNumber;
+    address private owner;
+    
+    constructor() {
+        owner = msg.sender;
+    }
+    
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the contract owner can call this function.");
+        _;
+    }
+    
+    function setNumber(uint _number) public onlyOwner {
+        myNumber = _number;
+    }
+    
+    function getNumber() public view returns (uint) {
+        return myNumber;
+    }
+    
+    function incrementNumber() public onlyOwner {
+        myNumber++;
+    }
+    
+    function decrementNumber() public onlyOwner {
+        myNumber--;
+    }
+}
